@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-labelledby="title desc">
+  <title id="title">Halal</title>
+  <desc id="desc">Simbolo Halal circolare nero con scritta araba e latina</desc>
+  <circle cx="60" cy="60" r="54" fill="none" stroke="#000" stroke-width="4"/>
+  <circle cx="60" cy="60" r="46" fill="none" stroke="#000" stroke-width="1.5"/>
+  <text x="60" y="61" fill="#000" font-family="Arial, 'Geeza Pro', sans-serif" font-size="33" font-weight="700" text-anchor="middle" direction="rtl">حلال</text>
+  <path d="M29 69h62" fill="none" stroke="#000" stroke-width="1.5"/>
+  <text x="60" y="87" fill="#000" font-family="Arial, sans-serif" font-size="14" font-weight="800" letter-spacing="3" text-anchor="middle">HALAL</text>
+</svg>
