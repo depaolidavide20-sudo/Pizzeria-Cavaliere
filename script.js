@@ -128,6 +128,7 @@ const STATIC_TRANSLATIONS = {
   "Indirizzo di consegna": "Delivery address",
   "Totale": "Total",
   "Acconsento all'apertura di WhatsApp e al trasferimento dei dati inseriti al servizio esterno. Ho letto la": "I consent to opening WhatsApp and transferring the entered data to the external service. I have read the",
+  "Acconsento all'apertura di WhatsApp e ho letto la": "I consent to opening WhatsApp and have read the",
   "Invia richiesta su WhatsApp": "Send request on WhatsApp",
   "La richiesta è confermata solo dopo risposta della pizzeria.": "The request is confirmed only after the pizzeria replies.",
   "Aggiunto all'ordine": "Added to your order",

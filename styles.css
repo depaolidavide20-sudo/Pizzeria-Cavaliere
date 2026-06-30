@@ -3869,3 +3869,104 @@ button:disabled,
     flex-basis: calc(100% - 38px);
   }
 }
+
+/* Compact mobile cards and centered stacked footer */
+.footer-grid {
+  grid-template-columns: 1fr;
+  justify-items: center;
+  gap: 30px;
+  text-align: center;
+}
+
+.footer-brand-block,
+.footer-legal {
+  justify-items: center;
+  text-align: center;
+}
+
+.brand--footer {
+  justify-content: center;
+}
+
+.footer-links--legal {
+  justify-content: center;
+  padding-top: 0;
+}
+
+@media (max-width: 780px) {
+  .consent-check--whatsapp {
+    grid-template-columns: 15px minmax(0, 1fr);
+    gap: 6px;
+    margin: 0;
+    padding: 2px 0;
+  }
+
+  .consent-check--whatsapp input {
+    width: 14px;
+    height: 14px;
+    margin-top: 1px;
+  }
+
+  .consent-check--whatsapp span {
+    font-size: 9px;
+    line-height: 1.25;
+  }
+
+  .consent-check--whatsapp a {
+    text-underline-offset: 2px;
+  }
+
+  .cart-drawer__footer {
+    gap: 6px;
+    padding-top: 9px;
+    padding-bottom: 9px;
+  }
+
+  .cart-drawer__footer > small {
+    font-size: 10px;
+    line-height: 1.25;
+  }
+
+  .products-copy__seo {
+    gap: 12px;
+    padding: 20px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: #11110f;
+    box-shadow: 0 18px 44px rgba(0, 0, 0, 0.2);
+  }
+
+  .products-copy__seo p {
+    font-size: 15px;
+    line-height: 1.58;
+  }
+
+  .review-card {
+    min-height: 220px;
+    padding: 18px;
+  }
+
+  .review-card__top {
+    margin-bottom: 14px;
+  }
+
+  .review-card blockquote {
+    font-size: 20px;
+    line-height: 1.18;
+  }
+
+  .review-card footer {
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .review-card {
+    min-height: 205px;
+    padding: 16px;
+  }
+
+  .review-card blockquote {
+    font-size: 19px;
+  }
+}
