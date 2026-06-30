@@ -93,6 +93,10 @@
             <button type="button" data-set-language="en" aria-pressed="false">EN</button>
           </div>
 
+          <a class="mobile-call-pill" href="tel:+393272904692" data-phone-link aria-label="Chiama Pizzeria Cavaliere">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z" /></svg>
+          </a>
+
           <button class="cart-pill" type="button" data-open-cart aria-label="Apri il carrello">
             <svg class="whatsapp-logo" viewBox="0 0 32 32" aria-hidden="true">
               <path d="M26.7 15.7a10.7 10.7 0 0 1-15.8 9.4L5 27l1.9-5.7a10.7 10.7 0 1 1 19.8-5.6Z" />
@@ -121,11 +125,11 @@
               guarda il menù e invia la richiesta direttamente su WhatsApp.
             </p>
             <div class="hero__actions">
-              <a class="button button--primary" href="#menu">
+              <a class="button button--primary hero__primary-cta" href="#menu">
                 <span>Guarda il menù</span>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
               </a>
-              <a class="button button--ghost" href="#contatti">
+              <a class="button button--ghost hero__location-cta" href="#contatti">
                 <svg viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0Z" />
                   <path d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" />
@@ -151,7 +155,7 @@
         </div>
 
         <a class="hero__scroll" href="#menu" aria-label="Scorri al menù">
-          <span>Apri il menù</span>
+          <span>Guarda il menù</span>
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m6 9 6 6 6-6" /></svg>
         </a>
       </section>
@@ -187,7 +191,7 @@
                 <span class="fulfillment-card__check" aria-hidden="true"></span>
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 7h11v10H3zM14 10h4l3 3v4h-7zM7 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4ZM18 20a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" /></svg>
                 <strong>Consegna a domicilio</strong>
-                <small>Scrivi l'indirizzo nelle note.</small>
+                <small>Inserisci l'indirizzo nel carrello.</small>
               </label>
               <label class="fulfillment-card">
                 <input type="radio" name="orderMode" value="Prenotazione tavolo" data-order-mode-input />
@@ -201,7 +205,6 @@
           </fieldset>
 
           <div class="menu-toolbar reveal" aria-label="Categorie del menù">
-            <button class="filter-button" type="button" data-filter="all" aria-pressed="false">Tutto</button>
             <button class="filter-button is-active" type="button" data-filter="pizze" aria-pressed="true">Pizze</button>
             <button class="filter-button" type="button" data-filter="bianche" aria-pressed="false">Pizze bianche</button>
             <button class="filter-button" type="button" data-filter="forno" aria-pressed="false">Calzoni e focacce</button>
@@ -424,7 +427,7 @@
       </div>
     </footer>
 
-    <button class="mobile-order-bar" type="button" data-open-cart aria-label="Prenota o ordina su WhatsApp">
+    <button class="mobile-order-bar is-hidden-on-hero" type="button" data-open-cart aria-label="Prenota o ordina su WhatsApp">
       <span>Il tuo ordine</span>
       <strong data-cart-total-preview>€0,00</strong>
       <span class="mobile-order-bar__count" data-cart-count>0</span>
@@ -468,6 +471,11 @@
           </fieldset>
 
           <div class="order-fields" id="orderFields">
+            <div class="delivery-address-field" id="deliveryAddressField" hidden>
+              <label for="deliveryAddress">Indirizzo di consegna</label>
+              <input id="deliveryAddress" type="text" autocomplete="street-address" placeholder="Via, numero civico e località" />
+            </div>
+
             <label for="pickupTime">Quando?</label>
             <select id="pickupTime">
               <option>Appena possibile</option>

@@ -55,6 +55,7 @@ const STATIC_TRANSLATIONS = {
   "Passa all'orario concordato.": "Collect it at the agreed time.",
   "Consegna a domicilio": "Home delivery",
   "Scrivi l'indirizzo nelle note.": "Add your address in the notes.",
+  "Inserisci l'indirizzo nel carrello.": "Enter your address in the cart.",
   "Prenotazione tavolo": "Table reservation",
   "Indica orario e persone.": "Tell us the time and party size.",
   "Scegli una modalità prima di inviare l'ordine.": "Choose an option before sending your request.",
@@ -124,6 +125,7 @@ const STATIC_TRANSLATIONS = {
   "Tra circa 45 minuti": "In about 45 minutes",
   "Orario da concordare": "Time to be agreed",
   "Dettagli della richiesta": "Request details",
+  "Indirizzo di consegna": "Delivery address",
   "Totale": "Total",
   "Acconsento all'apertura di WhatsApp e al trasferimento dei dati inseriti al servizio esterno. Ho letto la": "I consent to opening WhatsApp and transferring the entered data to the external service. I have read the",
   "Invia richiesta su WhatsApp": "Send request on WhatsApp",
@@ -320,6 +322,8 @@ const cartTotal = document.querySelector("#cartTotal");
 const checkout = document.querySelector("#whatsappCheckout");
 const pickupTime = document.querySelector("#pickupTime");
 const orderNotes = document.querySelector("#orderNotes");
+const deliveryAddressField = document.querySelector("#deliveryAddressField");
+const deliveryAddress = document.querySelector("#deliveryAddress");
 const orderModeError = document.querySelector("#orderModeError");
 const cartModeError = document.querySelector("#cartModeError");
 const orderModeSummary = document.querySelector("#orderModeSummary strong");
@@ -522,6 +526,10 @@ function setOrderMode(value) {
   orderModeError.hidden = true;
   cartModeError.hidden = true;
   orderModeSummary.textContent = getOrderModeLabel(value);
+  const isDelivery = value === "Consegna a domicilio";
+  deliveryAddressField.hidden = !isDelivery;
+  deliveryAddress.required = isDelivery;
+  if (!isDelivery) deliveryAddress.value = "";
   renderCart();
 }
 
@@ -545,6 +553,7 @@ function closeCart() {
 function buildRequestMessage() {
   const entries = getCartEntries();
   const details = orderNotes.value.trim();
+  const address = deliveryAddress.value.trim();
   const rows = entries.map((entry) =>
     `- ${entry.quantity}x ${getMenuName(entry)}${entry.variant.label ? ` (${getVariantLabel(entry.variant.label)})` : ""} - ${formatCurrency(entry.variant.price * entry.quantity)}`
   );
@@ -555,6 +564,7 @@ function buildRequestMessage() {
       ...rows,
       "",
       `Option: ${getOrderModeLabel(state.orderMode)}`,
+      address ? `Delivery address: ${address}` : "",
       `When: ${pickupTime.value}`,
       details ? `Notes: ${details}` : "",
       entries.length ? `Total: ${formatCurrency(getCartTotal())}` : "",
@@ -568,6 +578,7 @@ function buildRequestMessage() {
     ...rows,
     "",
     `Modalità: ${state.orderMode}`,
+    address ? `Indirizzo di consegna: ${address}` : "",
     `Quando: ${pickupTime.value}`,
     details ? `Note: ${details}` : "",
     entries.length ? `Totale: ${formatCurrency(getCartTotal())}` : "",
@@ -592,6 +603,12 @@ function sendWhatsAppRequest() {
     return;
   }
 
+  if (state.orderMode === "Consegna a domicilio" && !deliveryAddress.value.trim()) {
+    showToast(state.language === "en" ? "Enter the delivery address" : "Inserisci l'indirizzo di consegna");
+    deliveryAddress.focus();
+    return;
+  }
+
   if (!whatsappConsent.checked) {
     showToast(state.language === "en" ? "Accept the WhatsApp consent first" : "Accetta prima il consenso per WhatsApp");
     whatsappConsent.focus();
@@ -613,7 +630,9 @@ function applySiteConfig() {
   document.querySelector("[data-address]").textContent = SITE_CONFIG.address;
   document.querySelector("[data-phone-display]").textContent = SITE_CONFIG.phoneDisplay;
   document.querySelector("[data-phone-row]").hidden = false;
-  document.querySelector("[data-phone-link]").href = `tel:${SITE_CONFIG.phoneHref}`;
+  document.querySelectorAll("[data-phone-link]").forEach((link) => {
+    link.href = `tel:${SITE_CONFIG.phoneHref}`;
+  });
 
   const mapLink = document.querySelector("[data-map-link]");
   mapLink.href = SITE_CONFIG.mapsUrl;
@@ -670,6 +689,9 @@ function applyLanguage(language) {
   orderNotes.placeholder = state.language === "en"
     ? "Example: 2 Margherita pizzas for 8 pm, delivery to... or a table for 4 people..."
     : "Esempio: 2 margherite per le 20:00, consegna in via... oppure tavolo per 4 persone...";
+  deliveryAddress.placeholder = state.language === "en"
+    ? "Street, number and town"
+    : "Via, numero civico e località";
 
   applyStaticTranslations();
   renderMenu();
