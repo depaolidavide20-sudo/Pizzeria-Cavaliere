@@ -3613,3 +3613,259 @@ button:disabled,
     height: 64px;
   }
 }
+
+/* Mobile experience refinement */
+.mobile-call-pill {
+  display: none;
+}
+
+.delivery-address-field {
+  display: grid;
+  gap: 10px;
+}
+
+.order-fields input {
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: #1a1917;
+  color: var(--ink);
+}
+
+@media (max-width: 780px) {
+  .hero {
+    height: calc(100svh - 32px);
+    min-height: 680px;
+    max-height: 920px;
+    background-image:
+      linear-gradient(180deg, rgba(4, 4, 4, 0.38) 0%, rgba(4, 4, 4, 0.2) 48%, rgba(4, 4, 4, 0.5) 100%),
+      url("assets/hero-mobile.jpg");
+    background-position: center;
+    background-size: cover;
+  }
+
+  .hero__grid {
+    min-height: 100%;
+    display: grid;
+    place-items: center;
+    padding: 114px 0 104px;
+  }
+
+  .hero__content {
+    width: 100%;
+    max-width: 360px;
+    text-align: center;
+  }
+
+  .hero .eyebrow,
+  .hero__claim,
+  .hero__primary-cta,
+  .hero__location-cta {
+    display: none;
+  }
+
+  .hero h1 {
+    max-width: 350px;
+    margin: 0 auto;
+    font-size: clamp(43px, 13vw, 58px);
+    line-height: 0.98;
+    text-align: center;
+  }
+
+  .hero__actions {
+    display: flex;
+    justify-content: center;
+    margin-top: 28px;
+  }
+
+  .hero .social-icon-link {
+    justify-self: auto;
+    border-color: rgba(255, 255, 255, 0.5);
+    background: rgba(7, 7, 7, 0.5);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.24);
+    backdrop-filter: blur(8px);
+  }
+
+  .hero__scroll {
+    right: auto;
+    bottom: 22px;
+    left: 50%;
+    width: min(calc(100% - 28px), 360px);
+    min-height: 54px;
+    justify-content: center;
+    padding: 13px 18px;
+    border: 1px solid rgba(255, 255, 255, 0.24);
+    border-radius: var(--radius);
+    background: var(--red);
+    color: #fff;
+    box-shadow: 0 18px 42px rgba(0, 0, 0, 0.34);
+    font-size: 14px;
+    font-weight: 900;
+    transform: translateX(-50%);
+  }
+
+  .hero__scroll svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .cart-pill {
+    display: none;
+  }
+
+  .mobile-call-pill {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: var(--radius);
+    background: var(--red);
+    color: #fff;
+    box-shadow: 0 10px 26px rgba(219, 64, 45, 0.3);
+  }
+
+  .mobile-call-pill svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .mobile-order-bar {
+    border-color: rgba(255, 255, 255, 0.28);
+    background: var(--red);
+    box-shadow: 0 18px 48px rgba(0, 0, 0, 0.42);
+    transition: opacity 180ms ease, transform 220ms ease;
+  }
+
+  .mobile-order-bar.is-hidden-on-hero {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(100% + 24px));
+  }
+
+  .mobile-order-bar__count {
+    background: #fff;
+    color: var(--red-dark);
+  }
+
+  .consent-check--whatsapp {
+    grid-template-columns: 17px minmax(0, 1fr);
+    gap: 8px;
+    padding: 7px 2px;
+    border: 0;
+    background: transparent;
+  }
+
+  .consent-check--whatsapp input {
+    width: 16px;
+    height: 16px;
+  }
+
+  .consent-check--whatsapp span {
+    color: rgba(255, 249, 238, 0.58);
+    font-size: 10px;
+    line-height: 1.35;
+  }
+
+  .cart-drawer__footer {
+    gap: 8px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 22px;
+  }
+
+  .products-copy {
+    display: contents;
+  }
+
+  .products-copy.reveal {
+    opacity: 1;
+    transform: none;
+  }
+
+  .products-copy > .eyebrow {
+    order: 1;
+    margin-bottom: -10px;
+  }
+
+  .products-copy > h2 {
+    order: 2;
+    margin-bottom: 0;
+  }
+
+  .products-carousel {
+    order: 3;
+    margin-top: 4px;
+  }
+
+  .products-copy__seo {
+    order: 4;
+    margin-top: 4px;
+  }
+
+  .reviews-grid {
+    display: flex;
+    gap: 14px;
+    margin-right: -14px;
+    padding: 0 14px 12px 0;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+  }
+
+  .reviews-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .review-card {
+    min-width: 0;
+    flex: 0 0 calc(100% - 46px);
+    scroll-snap-align: start;
+  }
+
+  .contact-actions .social-icon-link--contact {
+    justify-self: center;
+  }
+
+  .footer-grid,
+  .footer-brand-block {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .brand--footer {
+    justify-content: center;
+  }
+
+  .footer-legal {
+    justify-items: center;
+    text-align: center;
+  }
+
+  .footer-links--legal {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero h1 .hero__halal-badge {
+    width: 58px;
+    height: 58px;
+  }
+
+  .reviews-grid {
+    margin-right: -14px;
+  }
+
+  .review-card {
+    flex-basis: calc(100% - 38px);
+  }
+}

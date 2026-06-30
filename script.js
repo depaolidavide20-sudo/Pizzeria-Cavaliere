@@ -817,6 +817,18 @@ function setupHeader() {
   window.addEventListener("scroll", handleScroll, { passive: true });
 }
 
+function setupMobileBottomBar() {
+  const hero = document.querySelector(".hero");
+  const mobileOrderBar = document.querySelector(".mobile-order-bar");
+  const update = () => {
+    const stillOnHero = window.scrollY < hero.offsetHeight - 140;
+    mobileOrderBar.classList.toggle("is-hidden-on-hero", stillOnHero);
+  };
+  update();
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+}
+
 function setupEvents() {
   filterButtons.forEach((button) => button.addEventListener("click", () => setFilter(button.dataset.filter)));
   document.querySelectorAll("[data-open-cart]").forEach((button) => button.addEventListener("click", openCart));
@@ -836,6 +848,7 @@ function setupEvents() {
 document.querySelector("[data-year]").textContent = new Date().getFullYear();
 applySiteConfig();
 setupHeader();
+setupMobileBottomBar();
 setupEvents();
 setupMapConsent();
 setupProductCarousel();
