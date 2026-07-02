@@ -11,6 +11,21 @@ const SITE_CONFIG = {
     "https://www.google.com/search?sca_esv=b24d33f0b7e2f9cd&rlz=1C5CHFA_enIT984IT984&sxsrf=APpeQnvwmi_Ox0LK7ClciLVb__wiKGvn5A:1782482810232&si=APenkKm7iecQ4G6P-TsbSMFKIQtv3EFIqRAFw-i8uEbk55Z-_39PTdUtub1kL37DnJJTAouXCMOYnDdFDCaLqI4m-M9SZz38zlhLe0WV87wRUi78VIb6uUz8oidrsETd2EL8me_Du-86EFlveLRb5JOK2t8iF1e_gA%3D%3D&q=Pizzeria+Kebab+Cavaliere+Recensioni&sa=X&ved=2ahUKEwjW7eL1iaWVAxXpRv4FHRe9AYoQ0bkNegQINRAF&biw=748&bih=707&dpr=2",
 };
 
+const DELIVERY_ZONES = {
+  santa: {
+    name: "Santa Margherita Ligure",
+    nameEn: "Santa Margherita Ligure",
+    minimum: 13,
+    fee: 1.5,
+  },
+  golfo: {
+    name: "Rapallo, San Lorenzo, Paraggi o Portofino",
+    nameEn: "Rapallo, San Lorenzo, Paraggi or Portofino",
+    minimum: 25,
+    fee: 3,
+  },
+};
+
 const CATEGORY_LABELS = {
   it: {
     pizze: "Pizze",
@@ -56,6 +71,11 @@ const STATIC_TRANSLATIONS = {
   "Consegna a domicilio": "Home delivery",
   "Scrivi l'indirizzo nelle note.": "Add your address in the notes.",
   "Inserisci l'indirizzo nel carrello.": "Enter your address in the cart.",
+  "Consegne a domicilio": "Home delivery",
+  "Ordine minimo calcolato sui prodotti.": "Minimum order calculated on food and drinks.",
+  "Minimo €13 · Consegna €1,50": "Minimum €13 · Delivery €1.50",
+  "Rapallo, San Lorenzo, Paraggi e Portofino": "Rapallo, San Lorenzo, Paraggi and Portofino",
+  "Minimo €25 · Consegna €3": "Minimum €25 · Delivery €3",
   "Prenotazione tavolo": "Table reservation",
   "Indica orario e persone.": "Tell us the time and party size.",
   "Scegli una modalità prima di inviare l'ordine.": "Choose an option before sending your request.",
@@ -92,6 +112,8 @@ const STATIC_TRANSLATIONS = {
   "Indirizzo": "Address",
   "Telefono": "Phone",
   "Orari": "Hours",
+  "Lunedì – Sabato": "Monday – Saturday",
+  "Domenica": "Sunday",
   "Ordina dal menù": "Order from the menu",
   "Chiama": "Call",
   "Contenuto esterno": "External content",
@@ -126,6 +148,12 @@ const STATIC_TRANSLATIONS = {
   "Orario da concordare": "Time to be agreed",
   "Dettagli della richiesta": "Request details",
   "Indirizzo di consegna": "Delivery address",
+  "Zona di consegna": "Delivery area",
+  "Scegli la località": "Choose the area",
+  "Santa Margherita Ligure — minimo €13 · consegna €1,50": "Santa Margherita Ligure — minimum €13 · delivery €1.50",
+  "Rapallo, San Lorenzo, Paraggi o Portofino — minimo €25 · consegna €3": "Rapallo, San Lorenzo, Paraggi or Portofino — minimum €25 · delivery €3",
+  "Seleziona la zona per verificare minimo d'ordine e costo di consegna.": "Choose the area to check the minimum order and delivery fee.",
+  "Costo di consegna": "Delivery fee",
   "Totale": "Total",
   "Acconsento all'apertura di WhatsApp e al trasferimento dei dati inseriti al servizio esterno. Ho letto la": "I consent to opening WhatsApp and transferring the entered data to the external service. I have read the",
   "Acconsento all'apertura di WhatsApp e ho letto la": "I consent to opening WhatsApp and have read the",
@@ -325,6 +353,10 @@ const pickupTime = document.querySelector("#pickupTime");
 const orderNotes = document.querySelector("#orderNotes");
 const deliveryAddressField = document.querySelector("#deliveryAddressField");
 const deliveryAddress = document.querySelector("#deliveryAddress");
+const deliveryZone = document.querySelector("#deliveryZone");
+const deliveryZoneNote = document.querySelector("#deliveryZoneNote");
+const cartDeliveryFee = document.querySelector("#cartDeliveryFee");
+const cartDeliveryFeeAmount = document.querySelector("#cartDeliveryFeeAmount");
 const orderModeError = document.querySelector("#orderModeError");
 const cartModeError = document.querySelector("#cartModeError");
 const orderModeSummary = document.querySelector("#orderModeSummary strong");
@@ -418,6 +450,49 @@ function getCartTotal() {
   return getCartEntries().reduce((total, entry) => total + entry.variant.price * entry.quantity, 0);
 }
 
+function getSelectedDeliveryZone() {
+  return DELIVERY_ZONES[deliveryZone.value] || null;
+}
+
+function getDeliveryFee() {
+  return state.orderMode === "Consegna a domicilio" ? (getSelectedDeliveryZone()?.fee || 0) : 0;
+}
+
+function getOrderTotal() {
+  return getCartTotal() + getDeliveryFee();
+}
+
+function updateDeliverySummary() {
+  const zone = getSelectedDeliveryZone();
+  const subtotal = getCartTotal();
+  const isDelivery = state.orderMode === "Consegna a domicilio";
+
+  cartDeliveryFee.hidden = !isDelivery || !zone;
+  cartDeliveryFeeAmount.textContent = formatCurrency(zone?.fee || 0);
+  deliveryZoneNote.classList.remove("is-valid", "is-warning");
+
+  if (!zone) {
+    deliveryZoneNote.textContent = state.language === "en"
+      ? "Choose the area to check the minimum order and delivery fee."
+      : "Seleziona la zona per verificare minimo d'ordine e costo di consegna.";
+    return;
+  }
+
+  const missing = Math.max(0, zone.minimum - subtotal);
+  if (missing > 0) {
+    deliveryZoneNote.classList.add("is-warning");
+    deliveryZoneNote.textContent = state.language === "en"
+      ? `${formatCurrency(missing)} more is needed to reach the ${formatCurrency(zone.minimum)} minimum order. Delivery: ${formatCurrency(zone.fee)}.`
+      : `Mancano ${formatCurrency(missing)} per raggiungere l'ordine minimo di ${formatCurrency(zone.minimum)}. Consegna: ${formatCurrency(zone.fee)}.`;
+    return;
+  }
+
+  deliveryZoneNote.classList.add("is-valid");
+  deliveryZoneNote.textContent = state.language === "en"
+    ? `Minimum order reached · Delivery ${formatCurrency(zone.fee)}`
+    : `Ordine minimo raggiunto · Consegna ${formatCurrency(zone.fee)}`;
+}
+
 function renderMenu() {
   const items = state.activeFilter === "all"
     ? MENU_ITEMS
@@ -450,7 +525,7 @@ function renderMenu() {
 function renderCart() {
   const entries = getCartEntries();
   const count = getCartCount();
-  const total = getCartTotal();
+  const total = getOrderTotal();
 
   document.querySelectorAll("[data-cart-count]").forEach((element) => {
     element.textContent = String(count);
@@ -463,6 +538,7 @@ function renderCart() {
   });
 
   cartTotal.textContent = formatCurrency(total);
+  updateDeliverySummary();
   emptyCart.hidden = entries.length > 0;
   cartFooter.hidden = entries.length === 0 && state.orderMode !== "Prenotazione tavolo";
   orderModeSummary.textContent = state.orderMode
@@ -530,7 +606,11 @@ function setOrderMode(value) {
   const isDelivery = value === "Consegna a domicilio";
   deliveryAddressField.hidden = !isDelivery;
   deliveryAddress.required = isDelivery;
-  if (!isDelivery) deliveryAddress.value = "";
+  deliveryZone.required = isDelivery;
+  if (!isDelivery) {
+    deliveryAddress.value = "";
+    deliveryZone.value = "";
+  }
   renderCart();
 }
 
@@ -555,6 +635,7 @@ function buildRequestMessage() {
   const entries = getCartEntries();
   const details = orderNotes.value.trim();
   const address = deliveryAddress.value.trim();
+  const zone = getSelectedDeliveryZone();
   const rows = entries.map((entry) =>
     `- ${entry.quantity}x ${getMenuName(entry)}${entry.variant.label ? ` (${getVariantLabel(entry.variant.label)})` : ""} - ${formatCurrency(entry.variant.price * entry.quantity)}`
   );
@@ -565,10 +646,13 @@ function buildRequestMessage() {
       ...rows,
       "",
       `Option: ${getOrderModeLabel(state.orderMode)}`,
+      zone ? `Delivery area: ${zone.nameEn}` : "",
       address ? `Delivery address: ${address}` : "",
       `When: ${pickupTime.value}`,
       details ? `Notes: ${details}` : "",
-      entries.length ? `Total: ${formatCurrency(getCartTotal())}` : "",
+      zone ? `Products subtotal: ${formatCurrency(getCartTotal())}` : "",
+      zone ? `Delivery fee: ${formatCurrency(zone.fee)}` : "",
+      entries.length ? `Total: ${formatCurrency(getOrderTotal())}` : "",
       "",
       "Thank you!",
     ].filter(Boolean).join("\n");
@@ -579,10 +663,13 @@ function buildRequestMessage() {
     ...rows,
     "",
     `Modalità: ${state.orderMode}`,
+    zone ? `Zona di consegna: ${zone.name}` : "",
     address ? `Indirizzo di consegna: ${address}` : "",
     `Quando: ${pickupTime.value}`,
     details ? `Note: ${details}` : "",
-    entries.length ? `Totale: ${formatCurrency(getCartTotal())}` : "",
+    zone ? `Subtotale prodotti: ${formatCurrency(getCartTotal())}` : "",
+    zone ? `Costo di consegna: ${formatCurrency(zone.fee)}` : "",
+    entries.length ? `Totale: ${formatCurrency(getOrderTotal())}` : "",
     "",
     "Grazie!",
   ].filter(Boolean).join("\n");
@@ -604,10 +691,26 @@ function sendWhatsAppRequest() {
     return;
   }
 
-  if (state.orderMode === "Consegna a domicilio" && !deliveryAddress.value.trim()) {
-    showToast(state.language === "en" ? "Enter the delivery address" : "Inserisci l'indirizzo di consegna");
-    deliveryAddress.focus();
-    return;
+  if (state.orderMode === "Consegna a domicilio") {
+    const zone = getSelectedDeliveryZone();
+    if (!zone) {
+      showToast(state.language === "en" ? "Choose the delivery area" : "Seleziona la zona di consegna");
+      deliveryZone.focus();
+      return;
+    }
+    if (getCartTotal() < zone.minimum) {
+      const missing = zone.minimum - getCartTotal();
+      showToast(state.language === "en"
+        ? `Add ${formatCurrency(missing)} to reach the minimum order`
+        : `Aggiungi ${formatCurrency(missing)} per raggiungere l'ordine minimo`);
+      deliveryZoneNote.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      return;
+    }
+    if (!deliveryAddress.value.trim()) {
+      showToast(state.language === "en" ? "Enter the delivery address" : "Inserisci l'indirizzo di consegna");
+      deliveryAddress.focus();
+      return;
+    }
   }
 
   if (!whatsappConsent.checked) {
@@ -836,6 +939,7 @@ function setupEvents() {
   document.querySelectorAll("[data-close-cart]").forEach((button) => button.addEventListener("click", closeCart));
   orderModeInputs.forEach((input) => input.addEventListener("change", () => setOrderMode(input.value)));
   cartOrderModeInputs.forEach((input) => input.addEventListener("change", () => setOrderMode(input.value)));
+  deliveryZone.addEventListener("change", renderCart);
   languageButtons.forEach((button) => button.addEventListener("click", () => applyLanguage(button.dataset.setLanguage)));
   whatsappConsent.addEventListener("change", () => {
     checkout.disabled = !whatsappConsent.checked;
