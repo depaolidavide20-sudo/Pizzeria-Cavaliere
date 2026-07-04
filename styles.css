@@ -2283,6 +2283,62 @@ h2 {
   background: var(--red-dark);
 }
 
+/* Collision-safe header for narrow Android phones. */
+@media (max-width: 480px) {
+  .site-header .nav {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 6px;
+  }
+
+  .site-header .brand {
+    width: 100%;
+    min-width: 0;
+    gap: 8px;
+    overflow: hidden;
+  }
+
+  .site-header .brand__mark {
+    width: 40px;
+    height: 40px;
+  }
+
+  .site-header .brand__text {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .site-header .brand strong {
+    overflow: hidden;
+    font-size: 16px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .site-header .nav__actions {
+    min-width: max-content;
+    margin-left: 0;
+    gap: 4px;
+  }
+
+  .site-header .language-switcher {
+    min-height: 36px;
+    gap: 2px;
+    margin-left: 0;
+    padding: 2px 4px;
+    font-size: 10px;
+  }
+
+  .site-header .language-switcher button {
+    padding: 3px;
+  }
+
+  .site-header .mobile-call-pill {
+    width: 40px;
+    height: 40px;
+  }
+}
+
 .delivery-rates {
   display: grid;
   grid-template-columns: minmax(210px, 0.72fr) minmax(0, 1.4fr);
