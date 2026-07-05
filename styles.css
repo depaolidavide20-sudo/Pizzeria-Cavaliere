@@ -4716,3 +4716,37 @@ body.customizer-open {
     gap: 12px;
   }
 }
+
+/* Compact, swipeable menu categories on mobile. */
+@media (max-width: 780px) {
+  .menu-toolbar {
+    flex-wrap: nowrap;
+    gap: 8px;
+    margin-right: calc((100vw - 100%) / -2);
+    padding-right: 14px;
+    padding-bottom: 7px;
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .menu-toolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .menu-toolbar .filter-button,
+  .menu-toolbar .filter-button--custom {
+    min-height: 40px;
+    flex: 0 0 auto;
+    justify-content: center;
+    padding: 9px 12px;
+    white-space: nowrap;
+    scroll-snap-align: start;
+  }
+
+  .menu-toolbar .filter-button--custom {
+    max-width: none;
+  }
+}
