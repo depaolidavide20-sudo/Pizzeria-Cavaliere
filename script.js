@@ -28,6 +28,7 @@ const DELIVERY_ZONES = {
 
 const CATEGORY_LABELS = {
   it: {
+    personalizzata: "Crea la tua pizza",
     pizze: "Pizze",
     bianche: "Pizze bianche",
     forno: "Calzoni e focacce",
@@ -37,6 +38,7 @@ const CATEGORY_LABELS = {
     bevande: "Bevande",
   },
   en: {
+    personalizzata: "Create your pizza",
     pizze: "Pizzas",
     bianche: "White pizzas",
     forno: "Calzones & focaccia",
@@ -79,6 +81,17 @@ const STATIC_TRANSLATIONS = {
   "Prenotazione tavolo": "Table reservation",
   "Indica orario e persone.": "Tell us the time and party size.",
   "Scegli una modalità prima di inviare l'ordine.": "Choose an option before sending your request.",
+  "Crea la tua pizza": "Create your pizza",
+  "Componi la tua pizza": "Build your pizza",
+  "Scegli la base che preferisci e aggiungi i tuoi ingredienti.": "Choose your preferred base and add your ingredients.",
+  "Componi": "Build",
+  "Base scelta": "Selected base",
+  "Scegli gli ingredienti": "Choose your ingredients",
+  "Puoi aggiungere tutti gli extra che desideri.": "Add as many extras as you like.",
+  "Azzera": "Clear",
+  "Prezzo della pizza": "Pizza price",
+  "Aggiungi al carrello": "Add to cart",
+  "Chiudi il configuratore": "Close the pizza builder",
   "Tutto": "All",
   "Pizze": "Pizzas",
   "Pizze bianche": "White pizzas",
@@ -258,6 +271,74 @@ const twoSizes = (normal, maxi) => [
 ];
 const onePrice = (price, label = "") => [{ label, price }];
 
+const CUSTOM_PIZZA_BASES = [
+  {
+    id: "marinara",
+    name: "Base Marinara",
+    nameEn: "Marinara base",
+    description: "Pomodoro, aglio, olio e origano.",
+    descriptionEn: "Tomato, garlic, olive oil and oregano.",
+    price: 5,
+  },
+  {
+    id: "margherita",
+    name: "Base Margherita",
+    nameEn: "Margherita base",
+    description: "Pomodoro e mozzarella.",
+    descriptionEn: "Tomato and mozzarella.",
+    price: 6,
+  },
+  {
+    id: "bianca-mozzarella",
+    name: "Base bianca con mozzarella",
+    nameEn: "White base with mozzarella",
+    description: "Mozzarella, senza salsa di pomodoro.",
+    descriptionEn: "Mozzarella, without tomato sauce.",
+    price: 5.5,
+  },
+];
+
+const CUSTOM_PIZZA_INGREDIENTS = [
+  { id: "gorgonzola", name: "Gorgonzola", nameEn: "Gorgonzola", price: 1.5 },
+  { id: "stracchino", name: "Stracchino", nameEn: "Stracchino", price: 2 },
+  { id: "bufala", name: "Mozzarella di bufala", nameEn: "Buffalo mozzarella", price: 2 },
+  { id: "carciofi", name: "Carciofi", nameEn: "Artichokes", price: 1.5 },
+  { id: "funghi", name: "Funghi", nameEn: "Mushrooms", price: 1.5 },
+  { id: "salame-dolce", name: "Salame dolce", nameEn: "Mild salami", price: 2 },
+  { id: "salame-piccante", name: "Salame piccante", nameEn: "Spicy salami", price: 2 },
+  { id: "prosciutto-cotto", name: "Prosciutto cotto", nameEn: "Cooked ham", price: 2 },
+  { id: "prosciutto-crudo", name: "Prosciutto crudo", nameEn: "Cured ham", price: 2 },
+  { id: "salsiccia", name: "Salsiccia", nameEn: "Sausage", price: 2 },
+  { id: "wurstel", name: "Würstel", nameEn: "Frankfurter", price: 1.5 },
+  { id: "patatine", name: "Patatine", nameEn: "French fries", price: 1.5 },
+  { id: "tonno", name: "Tonno", nameEn: "Tuna", price: 1.5 },
+  { id: "cipolla", name: "Cipolla", nameEn: "Onion", price: 1 },
+  { id: "uovo", name: "Uovo", nameEn: "Egg", price: 1 },
+  { id: "peperoni", name: "Peperoni", nameEn: "Peppers", price: 1.5 },
+  { id: "melanzana", name: "Melanzana", nameEn: "Eggplant", price: 1.5 },
+  { id: "zucchine", name: "Zucchine", nameEn: "Zucchini", price: 1.5 },
+  { id: "grana", name: "Grana", nameEn: "Grana cheese", price: 1 },
+  { id: "rucola", name: "Rucola", nameEn: "Arugula", price: 1 },
+  { id: "brie", name: "Brie", nameEn: "Brie", price: 1.5 },
+  { id: "trevisana", name: "Trevisana", nameEn: "Radicchio", price: 1 },
+  { id: "olive", name: "Olive", nameEn: "Olives", price: 1.5 },
+  { id: "acciughe", name: "Acciughe", nameEn: "Anchovies", price: 1.5 },
+  { id: "bresaola", name: "Bresaola", nameEn: "Bresaola", price: 2 },
+  { id: "salsa-pomodoro", name: "Salsa di pomodoro", nameEn: "Tomato sauce", price: 1 },
+  { id: "speck", name: "Speck", nameEn: "Speck", price: 2 },
+  { id: "pesto", name: "Pesto", nameEn: "Pesto", price: 1.5 },
+  { id: "mozzarella", name: "Mozzarella", nameEn: "Mozzarella", price: 2 },
+  { id: "aglio-olio", name: "Aglio e olio", nameEn: "Garlic and oil", price: 0.4 },
+  { id: "olio-oliva", name: "Olio d'oliva", nameEn: "Olive oil", price: 0.4 },
+  { id: "origano", name: "Origano", nameEn: "Oregano", price: 0.3 },
+  { id: "spinaci", name: "Spinaci", nameEn: "Spinach", price: 1.5 },
+  { id: "capperi", name: "Capperi", nameEn: "Capers", price: 1 },
+  { id: "panna", name: "Panna", nameEn: "Cream", price: 1 },
+  { id: "frutti-mare", name: "Frutti di mare", nameEn: "Seafood", price: 2 },
+  { id: "pomodoro-fresco", name: "Pomodoro fresco", nameEn: "Fresh tomato", price: 1 },
+  { id: "carne-kebab", name: "Carne kebab", nameEn: "Kebab meat", price: 2 },
+];
+
 const MENU_ITEMS = [
   { id: "marinara", name: "Marinara", category: "pizze", description: "Pomodoro, aglio, olio e origano.", prices: twoSizes(5, 9) },
   { id: "margherita", name: "Margherita", category: "pizze", description: "Pomodoro e mozzarella.", prices: twoSizes(6, 10) },
@@ -334,10 +415,14 @@ const MENU_ITEMS = [
 
 const state = {
   cart: createEmptyCart(),
+  customCart: {},
   activeFilter: "pizze",
   orderMode: "",
   language: loadLanguage(),
   lastFocusedElement: null,
+  customizerLastFocusedElement: null,
+  customBaseId: "",
+  customIngredientIds: new Set(),
 };
 
 const menuGrid = document.querySelector("#menuGrid");
@@ -373,6 +458,16 @@ const mapCookieNotice = document.querySelector("#mapCookieNotice");
 const acceptMapCookies = document.querySelector("#acceptMapCookies");
 const declineMapCookies = document.querySelector("#declineMapCookies");
 const toast = document.querySelector("#toast");
+const customizerShell = document.querySelector("#customizerShell");
+const customizerDialog = document.querySelector(".customizer-dialog");
+const customizerTitle = document.querySelector("#customizerTitle");
+const customizerBaseDescription = document.querySelector("#customizerBaseDescription");
+const customizerBaseName = document.querySelector("#customizerBaseName");
+const customizerBasePrice = document.querySelector("#customizerBasePrice");
+const customizerIngredients = document.querySelector("#customizerIngredients");
+const customizerTotal = document.querySelector("#customizerTotal");
+const clearCustomIngredients = document.querySelector("#clearCustomIngredients");
+const addCustomPizzaButton = document.querySelector("#addCustomPizza");
 let toastTimeout;
 
 function formatCurrency(value) {
@@ -402,7 +497,20 @@ function saveCart() {
 }
 
 function getMenuName(item) {
+  if (item.isCustom) return state.language === "en" ? item.nameEn : item.name;
   return state.language === "en" ? (MENU_NAME_EN[item.id] || item.name) : item.name;
+}
+
+function getCustomBaseName(base) {
+  return state.language === "en" ? base.nameEn : base.name;
+}
+
+function getCustomBaseDescription(base) {
+  return state.language === "en" ? base.descriptionEn : base.description;
+}
+
+function getCustomIngredientName(ingredient) {
+  return state.language === "en" ? ingredient.nameEn : ingredient.name;
 }
 
 function getMenuDescription(item) {
@@ -431,7 +539,7 @@ function getOrderModeLabel(value) {
 }
 
 function getCartEntries() {
-  return Object.entries(state.cart)
+  const standardEntries = Object.entries(state.cart)
     .map(([key, quantity]) => {
       const [itemId, variantIndexValue] = key.split("::");
       const item = MENU_ITEMS.find((menuItem) => menuItem.id === itemId);
@@ -440,6 +548,20 @@ function getCartEntries() {
       return item && variant ? { ...item, key, quantity, variant } : null;
     })
     .filter(Boolean);
+
+  return [...standardEntries, ...Object.values(state.customCart)];
+}
+
+function getCustomIngredientsText(entry) {
+  if (!entry.isCustom || !entry.ingredientIds.length) {
+    return state.language === "en" ? "No extras" : "Nessun extra";
+  }
+
+  return entry.ingredientIds
+    .map((ingredientId) => CUSTOM_PIZZA_INGREDIENTS.find((ingredient) => ingredient.id === ingredientId))
+    .filter(Boolean)
+    .map(getCustomIngredientName)
+    .join(", ");
 }
 
 function getCartCount() {
@@ -493,7 +615,49 @@ function updateDeliverySummary() {
     : `Ordine minimo raggiunto · Consegna ${formatCurrency(zone.fee)}`;
 }
 
+function renderCustomPizzaMenu() {
+  menuGrid.classList.add("menu-grid--custom");
+  menuGrid.innerHTML = `
+    <div class="custom-menu-intro">
+      <div>
+        <span>${state.language === "en" ? "Made by you" : "Fatta da te"}</span>
+        <h3>${state.language === "en" ? "Create your pizza" : "Crea la tua pizza"}</h3>
+      </div>
+      <p>${state.language === "en"
+        ? "Choose your preferred base and add your ingredients. The price updates while you build it."
+        : "Scegli la base che preferisci e aggiungi i tuoi ingredienti. Il prezzo si aggiorna mentre la componi."}</p>
+    </div>
+    ${CUSTOM_PIZZA_BASES.map((base) => `
+      <article class="menu-item custom-pizza-card">
+        <div class="menu-item__meta">
+          <span class="menu-item__category">${state.language === "en" ? "Custom pizza" : "Pizza personalizzata"}</span>
+          <h3>${getCustomBaseName(base)}</h3>
+          <p>${getCustomBaseDescription(base)}</p>
+        </div>
+        <div class="menu-item__prices">
+          <button type="button" class="price-button custom-pizza-card__button" data-custom-base="${base.id}" aria-label="${state.language === "en" ? "Build" : "Componi"} ${getCustomBaseName(base)}, ${formatCurrency(base.price)}">
+            <span>${state.language === "en" ? "Build" : "Componi"}</span>
+            <strong>${formatCurrency(base.price)}</strong>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 5v14M5 12h14" /></svg>
+          </button>
+        </div>
+      </article>
+    `).join("")}
+  `;
+
+  menuGrid.querySelectorAll("[data-custom-base]").forEach((button) => {
+    button.addEventListener("click", () => openCustomPizza(button.dataset.customBase));
+  });
+}
+
 function renderMenu() {
+  if (state.activeFilter === "personalizzata") {
+    renderCustomPizzaMenu();
+    return;
+  }
+
+  menuGrid.classList.remove("menu-grid--custom");
+
   const items = state.activeFilter === "all"
     ? MENU_ITEMS
     : MENU_ITEMS.filter((item) => item.category === state.activeFilter);
@@ -522,6 +686,123 @@ function renderMenu() {
   });
 }
 
+function getCurrentCustomBase() {
+  return CUSTOM_PIZZA_BASES.find((base) => base.id === state.customBaseId) || null;
+}
+
+function getSelectedCustomIngredients() {
+  return CUSTOM_PIZZA_INGREDIENTS.filter((ingredient) => state.customIngredientIds.has(ingredient.id));
+}
+
+function getCustomPizzaTotal() {
+  const base = getCurrentCustomBase();
+  if (!base) return 0;
+  return base.price + getSelectedCustomIngredients().reduce((total, ingredient) => total + ingredient.price, 0);
+}
+
+function updateCustomizerTotal() {
+  customizerTotal.textContent = formatCurrency(getCustomPizzaTotal());
+  const selectedCount = state.customIngredientIds.size;
+  addCustomPizzaButton.setAttribute(
+    "aria-label",
+    state.language === "en"
+      ? `Add custom pizza with ${selectedCount} extras, ${formatCurrency(getCustomPizzaTotal())}`
+      : `Aggiungi pizza personalizzata con ${selectedCount} extra, ${formatCurrency(getCustomPizzaTotal())}`
+  );
+}
+
+function renderCustomizer() {
+  const base = getCurrentCustomBase();
+  if (!base) return;
+
+  customizerTitle.textContent = state.language === "en" ? "Build your pizza" : "Componi la tua pizza";
+  customizerBaseDescription.textContent = getCustomBaseDescription(base);
+  customizerBaseName.textContent = getCustomBaseName(base);
+  customizerBasePrice.textContent = formatCurrency(base.price);
+  clearCustomIngredients.textContent = state.language === "en" ? "Clear" : "Azzera";
+
+  customizerIngredients.innerHTML = CUSTOM_PIZZA_INGREDIENTS.map((ingredient) => `
+    <label class="custom-ingredient">
+      <input type="checkbox" value="${ingredient.id}" ${state.customIngredientIds.has(ingredient.id) ? "checked" : ""} />
+      <span class="custom-ingredient__check" aria-hidden="true">
+        <svg viewBox="0 0 24 24"><path class="custom-ingredient__plus" d="M12 5v14M5 12h14" /><path class="custom-ingredient__tick" d="m5 12 4 4L19 6" /></svg>
+      </span>
+      <strong>${getCustomIngredientName(ingredient)}</strong>
+      <span class="custom-ingredient__price">+${formatCurrency(ingredient.price)}</span>
+    </label>
+  `).join("");
+
+  customizerIngredients.querySelectorAll('input[type="checkbox"]').forEach((input) => {
+    input.addEventListener("change", () => {
+      if (input.checked) state.customIngredientIds.add(input.value);
+      else state.customIngredientIds.delete(input.value);
+      updateCustomizerTotal();
+    });
+  });
+
+  updateCustomizerTotal();
+}
+
+function openCustomPizza(baseId) {
+  const base = CUSTOM_PIZZA_BASES.find((item) => item.id === baseId);
+  if (!base) return;
+
+  state.customizerLastFocusedElement = document.activeElement;
+  state.customBaseId = base.id;
+  state.customIngredientIds = new Set();
+  renderCustomizer();
+  customizerShell.classList.add("is-open");
+  customizerShell.setAttribute("aria-hidden", "false");
+  document.body.classList.add("customizer-open");
+  window.setTimeout(() => customizerDialog.focus(), 0);
+}
+
+function closeCustomPizza() {
+  customizerShell.classList.remove("is-open");
+  customizerShell.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("customizer-open");
+  state.customizerLastFocusedElement?.focus?.();
+}
+
+function clearCustomPizzaIngredients() {
+  state.customIngredientIds = new Set();
+  customizerIngredients.querySelectorAll('input[type="checkbox"]').forEach((input) => {
+    input.checked = false;
+  });
+  updateCustomizerTotal();
+}
+
+function addCustomPizzaToCart() {
+  const base = getCurrentCustomBase();
+  if (!base) return;
+
+  const selectedIngredients = getSelectedCustomIngredients();
+  const ingredientIds = selectedIngredients.map((ingredient) => ingredient.id);
+  const signature = ingredientIds.length ? ingredientIds.join("+") : "no-extra";
+  const key = `custom::${base.id}::${signature}`;
+  const existingEntry = state.customCart[key];
+
+  if (existingEntry) {
+    existingEntry.quantity += 1;
+  } else {
+    state.customCart[key] = {
+      id: `custom-${base.id}`,
+      key,
+      quantity: 1,
+      isCustom: true,
+      name: `Pizza personalizzata · ${base.name}`,
+      nameEn: `Custom pizza · ${base.nameEn}`,
+      baseId: base.id,
+      ingredientIds,
+      variant: { label: "", price: Number(getCustomPizzaTotal().toFixed(2)) },
+    };
+  }
+
+  renderCart();
+  closeCustomPizza();
+  showToast(state.language === "en" ? "Custom pizza added to cart" : "Pizza personalizzata aggiunta al carrello");
+}
+
 function renderCart() {
   const entries = getCartEntries();
   const count = getCartCount();
@@ -546,10 +827,11 @@ function renderCart() {
     : t("Nessuna modalità selezionata");
 
   cartItems.innerHTML = entries.map((entry) => `
-    <article class="cart-item">
+    <article class="cart-item${entry.isCustom ? " cart-item--custom" : ""}">
       <div>
         <h3>${getMenuName(entry)}</h3>
         <small>${entry.variant.label ? `${getVariantLabel(entry.variant.label)} · ` : ""}${formatCurrency(entry.variant.price)}</small>
+        ${entry.isCustom ? `<p class="cart-item__custom-details"><b>${state.language === "en" ? "Extras" : "Extra"}:</b> ${getCustomIngredientsText(entry)}</p>` : ""}
       </div>
       <div class="cart-item__actions" aria-label="${state.language === "en" ? "Quantity" : "Quantità"} ${getMenuName(entry)}">
         <button type="button" data-remove-key="${entry.key}" aria-label="${state.language === "en" ? "Remove one item" : "Rimuovi un prodotto"}">−</button>
@@ -579,6 +861,13 @@ function addToCart(itemId, variantIndex) {
 }
 
 function changeCartQuantity(key, amount) {
+  if (state.customCart[key]) {
+    state.customCart[key].quantity += amount;
+    if (state.customCart[key].quantity <= 0) delete state.customCart[key];
+    renderCart();
+    return;
+  }
+
   state.cart[key] = (state.cart[key] || 0) + amount;
   if (state.cart[key] <= 0) delete state.cart[key];
   saveCart();
@@ -636,9 +925,12 @@ function buildRequestMessage() {
   const details = orderNotes.value.trim();
   const address = deliveryAddress.value.trim();
   const zone = getSelectedDeliveryZone();
-  const rows = entries.map((entry) =>
-    `- ${entry.quantity}x ${getMenuName(entry)}${entry.variant.label ? ` (${getVariantLabel(entry.variant.label)})` : ""} - ${formatCurrency(entry.variant.price * entry.quantity)}`
-  );
+  const rows = entries.map((entry) => {
+    const customDetails = entry.isCustom
+      ? `\n  ${state.language === "en" ? "Extras" : "Extra"}: ${getCustomIngredientsText(entry)}`
+      : "";
+    return `- ${entry.quantity}x ${getMenuName(entry)}${entry.variant.label ? ` (${getVariantLabel(entry.variant.label)})` : ""} - ${formatCurrency(entry.variant.price * entry.quantity)}${customDetails}`;
+  });
 
   if (state.language === "en") {
     return [
@@ -800,6 +1092,7 @@ function applyLanguage(language) {
   applyStaticTranslations();
   renderMenu();
   renderCart();
+  if (customizerShell.classList.contains("is-open")) renderCustomizer();
 }
 
 function enableGoogleMap() {
@@ -937,6 +1230,7 @@ function setupEvents() {
   filterButtons.forEach((button) => button.addEventListener("click", () => setFilter(button.dataset.filter)));
   document.querySelectorAll("[data-open-cart]").forEach((button) => button.addEventListener("click", openCart));
   document.querySelectorAll("[data-close-cart]").forEach((button) => button.addEventListener("click", closeCart));
+  document.querySelectorAll("[data-close-customizer]").forEach((button) => button.addEventListener("click", closeCustomPizza));
   orderModeInputs.forEach((input) => input.addEventListener("change", () => setOrderMode(input.value)));
   cartOrderModeInputs.forEach((input) => input.addEventListener("change", () => setOrderMode(input.value)));
   deliveryZone.addEventListener("change", renderCart);
@@ -945,8 +1239,12 @@ function setupEvents() {
     checkout.disabled = !whatsappConsent.checked;
   });
   checkout.addEventListener("click", sendWhatsAppRequest);
+  clearCustomIngredients.addEventListener("click", clearCustomPizzaIngredients);
+  addCustomPizzaButton.addEventListener("click", addCustomPizzaToCart);
   document.addEventListener("keydown", (event) => {
-    if (event.key === "Escape" && cartShell.classList.contains("is-open")) closeCart();
+    if (event.key !== "Escape") return;
+    if (customizerShell.classList.contains("is-open")) closeCustomPizza();
+    else if (cartShell.classList.contains("is-open")) closeCart();
   });
 }
 
