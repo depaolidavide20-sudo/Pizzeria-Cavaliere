@@ -4750,3 +4750,31 @@ body.customizer-open {
     max-width: none;
   }
 }
+
+/* Individual framing for the latest carousel photographs. */
+.product-slide--dish img {
+  object-position: center 72%;
+}
+
+.product-slide--pizza-portrait img {
+  object-position: center 62%;
+}
+
+.product-slide--landscape {
+  background: #080706;
+}
+
+.product-slide--landscape img {
+  object-fit: contain;
+  object-position: center;
+}
+
+@media (max-width: 780px) {
+  .product-slide--dish img {
+    object-position: center 68%;
+  }
+
+  .product-slide--pizza-portrait img {
+    object-position: center 58%;
+  }
+}
