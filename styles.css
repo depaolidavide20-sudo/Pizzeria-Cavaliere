@@ -4816,19 +4816,52 @@ body.customizer-open {
 
 @media (max-width: 780px) {
   .reviews-grid {
-    display: grid;
-    grid-template-columns: 1fr;
+    height: 230px;
+    display: flex;
+    align-items: stretch;
     gap: 12px;
-    margin-right: 0;
-    padding: 0;
-    overflow: visible;
-    scroll-snap-type: none;
+    margin-right: -14px;
+    padding: 0 14px 0 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x mandatory;
+    scrollbar-width: none;
+    touch-action: pan-x;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .reviews-grid::-webkit-scrollbar {
+    display: none;
   }
 
   .reviews-grid .review-card {
-    width: 100%;
+    width: auto;
+    min-height: 230px;
+    height: 230px;
+    max-height: 230px;
+    flex: 0 0 calc(100% - 36px);
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+  }
+
+  .reviews-grid .review-card.reveal,
+  .reviews-grid .review-card.reveal.is-visible {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (max-width: 480px) {
+  .reviews-grid,
+  .reviews-grid .review-card {
     min-height: 220px;
-    flex: none;
-    scroll-snap-align: none;
+    height: 220px;
+    max-height: 220px;
+  }
+
+  .reviews-grid .review-card {
+    flex-basis: calc(100% - 28px);
   }
 }
