@@ -4778,3 +4778,57 @@ body.customizer-open {
     object-position: center 58%;
   }
 }
+
+/* Full-bleed framing for the latest carousel photographs. */
+.product-slide--fitted {
+  background: #080706;
+}
+
+.product-slide--fitted img,
+.product-slide--fitted.product-slide--dish img,
+.product-slide--fitted.product-slide--pizza-portrait img,
+.product-slide--fitted.product-slide--landscape img {
+  position: relative;
+  z-index: 1;
+  object-fit: cover;
+  object-position: var(--product-position, center);
+}
+
+/* Stable, evenly aligned review cards. */
+.reviews-grid {
+  align-items: stretch;
+  grid-auto-rows: 1fr;
+}
+
+.review-card {
+  height: 100%;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+}
+
+.review-card blockquote {
+  align-self: start;
+}
+
+.review-card footer {
+  align-self: end;
+}
+
+@media (max-width: 780px) {
+  .reviews-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 12px;
+    margin-right: 0;
+    padding: 0;
+    overflow: visible;
+    scroll-snap-type: none;
+  }
+
+  .reviews-grid .review-card {
+    width: 100%;
+    min-height: 220px;
+    flex: none;
+    scroll-snap-align: none;
+  }
+}
