@@ -4880,7 +4880,7 @@ body.customizer-open {
     bottom: 14px;
     left: 14px;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 44px;
+    grid-template-columns: minmax(0, 1fr) 56px;
     align-items: center;
     gap: 8px;
     transition: opacity 180ms ease, transform 220ms ease;
@@ -4900,8 +4900,8 @@ body.customizer-open {
   }
 
   .mobile-bottom-call {
-    width: 44px;
-    height: 44px;
+    width: 56px;
+    height: 56px;
     display: grid;
     place-items: center;
     border: 1px solid rgba(255, 255, 255, 0.28);
@@ -4919,11 +4919,11 @@ body.customizer-open {
 
 @media (max-width: 480px) {
   .mobile-bottom-actions {
-    grid-template-columns: minmax(0, 1fr) 40px;
+    grid-template-columns: minmax(0, 1fr) 56px;
   }
 
   .mobile-bottom-call {
-    width: 40px;
-    height: 40px;
+    width: 56px;
+    height: 56px;
   }
 }
