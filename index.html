@@ -108,7 +108,7 @@
             <button type="button" data-set-language="en" aria-pressed="false">EN</button>
           </div>
 
-          <a class="mobile-call-pill" href="tel:+393272904692" data-phone-link aria-label="Chiama Pizzeria Cavaliere">
+          <a class="mobile-call-pill" href="tel:+3901851870697" data-landline-link aria-label="Chiama Pizzeria Cavaliere al numero fisso 0185 1870697" title="Chiama 0185 1870697">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z" /></svg>
           </a>
 
@@ -473,11 +473,16 @@
       </div>
     </footer>
 
-    <button class="mobile-order-bar is-hidden-on-hero" type="button" data-open-cart aria-label="Prenota o ordina su WhatsApp">
-      <span>Il tuo ordine</span>
-      <strong data-cart-total-preview>€0,00</strong>
-      <span class="mobile-order-bar__count" data-cart-count>0</span>
-    </button>
+    <div class="mobile-bottom-actions is-hidden-on-hero">
+      <button class="mobile-order-bar" type="button" data-open-cart aria-label="Prenota o ordina su WhatsApp">
+        <span>Il tuo ordine</span>
+        <strong data-cart-total-preview>€0,00</strong>
+        <span class="mobile-order-bar__count" data-cart-count>0</span>
+      </button>
+      <a class="mobile-bottom-call" href="tel:+3901851870697" data-landline-link aria-label="Chiama Pizzeria Cavaliere al numero fisso 0185 1870697" title="Chiama 0185 1870697">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.4 19.4 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 2 .7 2.8a2 2 0 0 1-.5 2.1L8 9.9a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z" /></svg>
+      </a>
+    </div>
 
     <div class="cart-shell" id="cartShell" aria-hidden="true">
       <button class="cart-backdrop" type="button" data-close-cart aria-label="Chiudi ordine"></button>

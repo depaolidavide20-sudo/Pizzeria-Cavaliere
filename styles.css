@@ -4865,3 +4865,65 @@ body.customizer-open {
     flex-basis: calc(100% - 28px);
   }
 }
+
+/* Mobile fixed actions: order and landline call. */
+.mobile-bottom-actions,
+.mobile-bottom-call {
+  display: none;
+}
+
+@media (max-width: 780px) {
+  .mobile-bottom-actions {
+    position: fixed;
+    z-index: 50;
+    right: 14px;
+    bottom: 14px;
+    left: 14px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 44px;
+    align-items: center;
+    gap: 8px;
+    transition: opacity 180ms ease, transform 220ms ease;
+  }
+
+  .mobile-bottom-actions.is-hidden-on-hero {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(calc(100% + 24px));
+  }
+
+  .mobile-bottom-actions .mobile-order-bar {
+    position: static;
+    width: 100%;
+    min-width: 0;
+    display: flex;
+  }
+
+  .mobile-bottom-call {
+    width: 44px;
+    height: 44px;
+    display: grid;
+    place-items: center;
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: var(--radius);
+    background: var(--red);
+    color: #fff;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.38);
+  }
+
+  .mobile-bottom-call svg {
+    width: 20px;
+    height: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .mobile-bottom-actions {
+    grid-template-columns: minmax(0, 1fr) 40px;
+  }
+
+  .mobile-bottom-call {
+    width: 40px;
+    height: 40px;
+  }
+}

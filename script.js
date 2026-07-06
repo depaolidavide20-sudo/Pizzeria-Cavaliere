@@ -2,6 +2,8 @@ const SITE_CONFIG = {
   whatsappNumber: "393272904692",
   phoneDisplay: "+39 327 290 4692",
   phoneHref: "+393272904692",
+  landlineDisplay: "0185 1870697",
+  landlineHref: "+3901851870697",
   address: "Via Roma, 16A, 16038 Santa Margherita Ligure GE",
   mapsEmbedUrl:
     "https://www.google.com/maps?q=Via%20Roma%2016A%2C%2016038%20Santa%20Margherita%20Ligure%20GE&output=embed",
@@ -1029,6 +1031,10 @@ function applySiteConfig() {
   document.querySelectorAll("[data-phone-link]").forEach((link) => {
     link.href = `tel:${SITE_CONFIG.phoneHref}`;
   });
+  document.querySelectorAll("[data-landline-link]").forEach((link) => {
+    link.href = `tel:${SITE_CONFIG.landlineHref}`;
+    link.title = `${state.language === "en" ? "Call" : "Chiama"} ${SITE_CONFIG.landlineDisplay}`;
+  });
 
   const mapLink = document.querySelector("[data-map-link]");
   mapLink.href = SITE_CONFIG.mapsUrl;
@@ -1216,10 +1222,10 @@ function setupHeader() {
 
 function setupMobileBottomBar() {
   const hero = document.querySelector(".hero");
-  const mobileOrderBar = document.querySelector(".mobile-order-bar");
+  const mobileBottomActions = document.querySelector(".mobile-bottom-actions");
   const update = () => {
     const stillOnHero = window.scrollY < hero.offsetHeight - 140;
-    mobileOrderBar.classList.toggle("is-hidden-on-hero", stillOnHero);
+    mobileBottomActions.classList.toggle("is-hidden-on-hero", stillOnHero);
   };
   update();
   window.addEventListener("scroll", update, { passive: true });
