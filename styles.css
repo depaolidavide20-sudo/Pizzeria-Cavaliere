@@ -268,6 +268,7 @@ img {
 }
 
 .cart-pill,
+.mobile-cart-pill,
 .button,
 .filter-button,
 .icon-button {
@@ -303,6 +304,7 @@ img {
 }
 
 .cart-pill__count,
+.mobile-cart-pill__count,
 .mobile-order-bar__count,
 .menu-order-cta__count {
   min-width: 28px;
@@ -2333,7 +2335,7 @@ h2 {
     padding: 3px;
   }
 
-  .site-header .mobile-call-pill {
+  .site-header .mobile-cart-pill {
     width: 40px;
     height: 40px;
   }
@@ -3861,7 +3863,7 @@ button:disabled,
 }
 
 /* Mobile experience refinement */
-.mobile-call-pill {
+.mobile-cart-pill {
   display: none;
 }
 
@@ -3961,7 +3963,8 @@ button:disabled,
     display: none;
   }
 
-  .mobile-call-pill {
+  .mobile-cart-pill {
+    position: relative;
     width: 44px;
     height: 44px;
     display: grid;
@@ -3973,9 +3976,21 @@ button:disabled,
     box-shadow: 0 10px 26px rgba(219, 64, 45, 0.3);
   }
 
-  .mobile-call-pill svg {
+  .mobile-cart-pill svg {
     width: 20px;
     height: 20px;
+  }
+
+  .mobile-cart-pill__count {
+    position: absolute;
+    top: -7px;
+    right: -7px;
+    min-width: 21px;
+    height: 21px;
+    padding: 0 5px;
+    border: 1px solid rgba(255, 255, 255, 0.78);
+    font-size: 11px;
+    line-height: 1;
   }
 
   .mobile-order-bar {
